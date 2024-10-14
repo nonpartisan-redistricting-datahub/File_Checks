@@ -23,13 +23,8 @@ def run_vf_checks(st, election_path):
 
     shps = gp.read_file(election_path)
     shps["COUNTYFP"] = shps["COUNTYFP"].astype(str).str.zfill(3)
-    shps["UNIQUE_ID"] = shps["COUNTYFP"]+shps["VTDST"]
-
     shps = shps.to_crs(4269)
     
-
-
-
     for county in list(holder["co_fips"].unique()):
         if not os.path.exists("./{}/".format(st)+str(county).zfill(3)):
             os.mkdir("./{}/".format(st)+str(county).zfill(3))       
@@ -54,13 +49,6 @@ def run_vf_checks(st, election_path):
                     try:
                         if len(other_precs) > 0:
 
-
-        #                     print(xlim)
-        #                     print([filtered_shps[filtered_shps["UNIQUE_ID"]==prec].total_bounds[0]*1,  filtered_shps[filtered_shps["UNIQUE_ID"]==prec].total_bounds[2]*1])
-        #                     print(" ")
-
-
-
                             holder_county[holder_county["UNIQUE_ID_y"].isin(other_precs)].plot(ax = ax, column = "UNIQUE_ID_y", legend = True, s = 3, legend_kwds = {"loc":(1,0)}, cmap = "tab20")
                     except IndexError as i:
                         print("INDEX ERROR***********")
@@ -82,5 +70,5 @@ def run_vf_checks(st, election_path):
 #run_vf_checks("OH","/Users/peterhorton/Documents/RDH/vf_checks/raw-from-source/oh_gen_2022_prec/oh_2022_gen_prec_no_splits.shp")
 #run_vf_checks("MS","/Users/peterhorton/Documents/RDH/vf_checks/raw-from-source/ms_gen_22_prec/ms_gen_22_prec.shp")
 #run_vf_checks("NV","/Users/peterhorton/Documents/RDH/pber_local/NV_2022/nv_gen_22_precs/nv_gen_22_precs.shp")
-run_vf_checks("KS","/Users/peterhorton/Downloads/Kansas_2022_General-main/ks_2022g (1)/ks_2022g.shp")
+run_vf_checks("AZ","/Users/peterhorton/Downloads/az_2022/processed_shapes.shp")
 
